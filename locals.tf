@@ -13,7 +13,7 @@ variable "aws_region" {
 variable "amis" {
   type = map(string)
   default = {
-    us-east-1 = "ami-04505e74c0741db8d"
+    us-east-1 = "ami-052efd3df9dad4825"
   }
 }
 variable "private_key_name" {
