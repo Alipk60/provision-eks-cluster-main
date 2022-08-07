@@ -28,6 +28,6 @@ resource "aws_security_group" "web_traffic" {
     from_port   = 0   
     to_port     = 65535
     protocol    = "TCP"
-    cidr_blocks = ["54.161.39.189/190"]
+    cidr_blocks = ["35.175.178.64/32"]
   }
 }
