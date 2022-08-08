@@ -3,8 +3,10 @@ resource "aws_instance" "ubuntu" {
   instance_type = "t2.micro"
   key_name      = var.private_key_name
   vpc_security_group_ids = ["${aws_security_group.web_traffic.id}"]
-
-
+  count         = var.instance_count
+  tags = {
+     Name = "ubuntu-${count.index}"
+          }
   connection {
     type        = "ssh"
     host        = self.public_ip
@@ -16,11 +18,11 @@ resource "aws_instance" "ubuntu" {
   provisioner "local-exec" {
     command = "echo ${element(aws_instance.ubuntu.*.public_ip, count.index)} >> ${var.host_file}"
   }
-  count = 3
 
-  provisioner "local-exec" {
-    command = "sleep 120; ansible-playbook -u ubuntu --private-key ./project2.pem -i hosts playbook.yml"
-  }
+
+ # provisioner "local-exec" {
+ #   command = "sleep 120; ansible-playbook -u ubuntu --private-key ./project1.pem -i hosts playbook.yml"
+ # }
 
 }
 
