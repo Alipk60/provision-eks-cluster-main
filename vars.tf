@@ -1,11 +1,11 @@
 variable "aws_access_key" {
-  default = "ASIAX7HMF2FXMHH5BKIS"
+  default = "***********"
 }
 variable "aws_secret_key" {
-  default = "5WnBXd6GgnHVdp5yxD2bBAhoHZ+XexQ3hmJpjFTX"
+  default = "*********"
 }
 variable "aws_token" {
-  default = "FwoGZXIvYXdzEKn//////////wEaDG0gxv+rjO0UII+6TyK0AYZ0HF+MIPk5OGye6A34V+fUyUzwhlivcWXeL0wgirev7q20D7BHETx5LX79NFhfu5ujUTHdFbk3fJWrs7gXCrJwf7rRMZHg0+K5Pnk2aV/IF01HPyTZ4A/BfWtVz2gNURLfntevT86MDqhRE+5khMlNYcWjXkXi1d64FtAju/3go3x6VcH6KvXa/Njm4LtKcwM+RBffLuxIvXyEpQ8F+A/dmOAqhlep3H2I87Y05iJe6e0btyiRwr+XBjItfu6Zh77fD4WOnN/PGG7CQYFiNx2xVAiNbLS0OSokz+y96ZTewVDd0B2YnXNu"
+  default = "FwoGZXIvYXdzELL//////////wEaDGQBm92GCdOiAIOYpCK0AdREnafkN/Nc3iZyIixjXMlpuA7gBEpYhExJStjmVNarV/5GefTC84T4+G9vBEcQpS1KZllCVQ2tAon+4g1F0KuDweF5naYX0R5o9MJsotBqT1FQFuvRy+npwOiWpH8uu28hHvrA/jQpzVLo6/vzX2xjVGvT2YrAWjpR3ioQGAQzocdYhxgYShACCfQDjDPvr5KetQoQaushA/UjCDO5pYDQVN24r+I0EFMXDrY5Pbwn756CjSi/tMGXBjItlM/UaF07Qc8dKlDPJG9HIbTd3fEYB+QjoQ9aA0oNlRXmFPsODjr99VQBCHZA"
 }
 variable "aws_region" {
   default = "us-east-1"
@@ -33,4 +33,7 @@ variable "aws_security_group" {
 }
 variable "host_file" {
   default = "hosts"
+}
+variable "instance_count" {
+  default = "1"
 }
