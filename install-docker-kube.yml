@@ -1,0 +1,67 @@
+- name: install docker
+  hosts: all
+  vars:
+    ansible_python_interpreter: /bin/python3
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: 'yes'
+        force_apt_get: 'yes'
+        ignore_errors: 'yes'
+    - name: Upgrade all apt packages
+      apt:
+        upgrade: dist
+        force_apt_get: 'yes'
+        ignore_errors: 'yes'
+    - name: Install dependencies
+      apt:
+        name: '{{ dependencies }}'
+        state: present
+        update_cache: 'yes'
+      vars:
+        dependencies:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+          - gnupg-agent
+        ignore_errors: 'yes'
+    - name: Add GPG key for Docker
+      apt_key:
+        url: 'https://download.docker.com/linux/ubuntu/gpg'
+        state: present
+        ignore_errors: 'yes'
+    - name: Add stable repository for docker
+      apt_repository:
+        repo: 'deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable'
+        state: present
+        ignore_errors: 'yes'
+    - name: Install Docker
+      apt:
+        name: '{{ items }}'
+        state: present
+        update_cache: 'yes'
+      vars:
+        items:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+    - name: add Kubernetes apt-key for APT repository
+      apt_key:
+        url: 'https://packages.cloud.google.com/apt/doc/apt-key.gpg'
+        state: present
+    - name: add Kubernetes APT repository
+      apt_repository:
+        repo: deb http://apt.kubernetes.io/ kubernetes-xenial main
+        state: present
+        filename: 'kubernetes'
+    - name: install kubelet
+      apt:
+        name: "{{ T }}"
+        state: present
+        update_cache: yes
+      vars:
+        T:
+          - kubeadm
+          - kubelet
+          - kubectl
