@@ -44,7 +44,7 @@ resource "null_resource" "ubuntu" {
       command = "echo ${element(aws_instance.ubuntu.*.public_ip, count.index+2)} >> ${var.host_file}"
     }
  provisioner "local-exec" {
-    command = "sleep 120; ansible-playbook -u ubuntu --private-key ./project1.pem -i hosts install-docker-kube.yml"
+    command = "sleep 320; ansible-playbook -u ubuntu --private-key ./project1.pem -i hosts install-docker-kube.yml"
   }
 }
 # Create elastic IP and assosiated to instances
