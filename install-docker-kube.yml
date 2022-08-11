@@ -1,5 +1,6 @@
 - name: install docker
   hosts: all
+  become: true
   vars:
     ansible_python_interpreter: /bin/python3
   tasks:
@@ -7,12 +8,13 @@
       apt:
         update_cache: 'yes'
         force_apt_get: 'yes'
-        ignore_errors: 'yes'
+
+
     - name: Upgrade all apt packages
       apt:
         upgrade: dist
         force_apt_get: 'yes'
-        ignore_errors: 'yes'
+        # ignore_errors: 'yes'
     - name: Install dependencies
       apt:
         name: '{{ dependencies }}'
@@ -25,18 +27,18 @@
           - curl
           - software-properties-common
           - gnupg-agent
-        ignore_errors: 'yes'
+        # ignore_errors: 'yes'
     - name: Add GPG key for Docker
       apt_key:
         url: 'https://download.docker.com/linux/ubuntu/gpg'
         state: present
-        ignore_errors: 'yes'
+        # ignore_errors: 'yes'
     - name: Add stable repository for docker
       apt_repository:
         repo: 'deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable'
         state: present
-        ignore_errors: 'yes'
-    - name: Install Docker
+        # ignore_errors: 'yes'
+     - name: Install Docker
       apt:
         name: '{{ items }}'
         state: present
