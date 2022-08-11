@@ -29,13 +29,13 @@ resource "null_resource" "ubuntu" {
   # })
 
   provisioner "local-exec" {
-      command = "echo [master node] >> ${var.host_file}"
+      command = "echo [master] >> ${var.host_file}"
     }
   provisioner "local-exec" {
       command = "echo ${element(aws_instance.ubuntu.*.public_ip, count.index)} >> ${var.host_file}"
     }
   provisioner "local-exec" {
-      command = "echo [worker node] >> ${var.host_file}"
+      command = "echo [worker] >> ${var.host_file}"
     }
   provisioner "local-exec" {
       command = "echo ${element(aws_instance.ubuntu.*.public_ip, count.index+1)} >> ${var.host_file}"
@@ -43,9 +43,9 @@ resource "null_resource" "ubuntu" {
   provisioner "local-exec" {
       command = "echo ${element(aws_instance.ubuntu.*.public_ip, count.index+2)} >> ${var.host_file}"
     }
-# provisioner "local-exec" {
- #   command = "sleep 120; ansible-playbook -u ubuntu --private-key ./project1.pem -i hosts playbook.yml"
- # }
+ provisioner "local-exec" {
+    command = "sleep 120; ansible-playbook -u ubuntu --private-key ./project1.pem -i hosts install-docker-kube.yml"
+  }
 }
 # Create elastic IP and assosiated to instances
 resource "aws_eip" "lb" {
