@@ -35,5 +35,5 @@ variable "host_file" {
   default = "hosts"
 }
 variable "instance_count" {
-  default = "2"
+  default = "3"
 }
