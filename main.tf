@@ -34,9 +34,15 @@ resource "aws_instance" "ubuntu" {
   provisioner "local-exec" {
       command = "echo ${element(aws_eip.lb.*.public_ip, count.index+2)} >> ${var.host_file}"
     }
- # provisioner "local-exec" {
- #   command = "sleep 320; ansible-playbook -u ubuntu --private-key ./project1.pem -i hosts install-docker-kube.yml"
- # }
+  provisioner "local-exec" {
+    command = "sleep 320; ansible-playbook -u ubuntu --private-key ./project1.pem -i hosts create-user.yml"
+  }
+  provisioner "local-exec" {
+    command = "ansible-playbook -u ubuntu --private-key ./project1.pem -i hosts kube-dependencies.yml"
+  }
+  provisioner "local-exec" {
+    command = "ansible-playbook -u ubuntu --private-key ./project1.pem -i hosts create-cluster.yml"
+  }
  }
 output "ec2_global_ips" {
   value = "${aws_eip.lb.*.public_ip}"
